@@ -93,5 +93,9 @@ namespace UIEdit.Windows {
             ProjectController.SetLocationSurfaces();
             TbSurfacesPath.Text = ProjectController.SurfacesPath;
         }
+
+        private void BtnGotoGithub_OnClick(object sender, RoutedEventArgs e) {
+            System.Diagnostics.Process.Start("https://github.com/perfectdev/UIEdit");
+        }
     }
 }
