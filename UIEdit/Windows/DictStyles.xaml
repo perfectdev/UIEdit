@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <RadialGradientBrush x:Key="SplitterBackground">
+        <GradientStop Color="#FF767676" Offset="0.5"/>
+        <GradientStop Color="Transparent"/>
+        <GradientStop Color="Transparent" Offset="1"/>
+    </RadialGradientBrush>
+</ResourceDictionary>
