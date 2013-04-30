@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 using UIEdit.Controllers;
 using UIEdit.Models;
 
@@ -14,11 +16,16 @@ namespace UIEdit.Windows {
 
         public MainWindow() {
             InitializeComponent();
+            Dispatcher.UnhandledException += ApplicationOnDispatcherUnhandledException;
             ProjectController = new ProjectController();
             LayoutController = new LayoutController();
             LbDialogs.SelectionChanged += LbDialogsOnSelectionChanged;
             TeFile.TextChanged += TeFileOnTextChanged;
             TxtSearch.TextChanged += TxtSearchOnTextChanged;
+        }
+
+        private void ApplicationOnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
+            File.AppendAllText("error.log", string.Format(@"{0} {1} {2}{4}{3}{4}{4}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), e.Exception, e.Exception.Message, e.Exception.StackTrace, Environment.NewLine));
         }
 
         private void TxtSearchOnTextChanged(object sender, TextChangedEventArgs e) {
