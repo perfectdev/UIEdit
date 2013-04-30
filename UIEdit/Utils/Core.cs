@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using FreeImageAPI;
@@ -164,7 +166,14 @@ namespace UIEdit.Utils {
             if (color == null) return new SolidColorBrush(Colors.Transparent);
             var ret = new SolidColorBrush();
             var dyes = color.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            ret.Color = Color.FromArgb(Convert.ToByte(dyes[3]), Convert.ToByte(dyes[0]), Convert.ToByte(dyes[1]), Convert.ToByte(dyes[2]));
+            byte alfa, r, g, b;
+            Byte.TryParse(dyes[3], NumberStyles.Integer, Thread.CurrentThread.CurrentCulture, out alfa);
+            Byte.TryParse(dyes[0], NumberStyles.Integer, Thread.CurrentThread.CurrentCulture, out r);
+            Byte.TryParse(dyes[1], NumberStyles.Integer, Thread.CurrentThread.CurrentCulture, out g);
+            Byte.TryParse(dyes[2], NumberStyles.Integer, Thread.CurrentThread.CurrentCulture, out b);
+            ret.Color = dyes.Length == 4 
+                ? Color.FromArgb(alfa, r, g, b) 
+                : Colors.White;
             return ret;
         }
     }
