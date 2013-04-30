@@ -16,8 +16,8 @@ namespace UIEdit.Controllers {
 
         public Exception Parse(string text, string path) {
             var isValid = true;
-            const string tmpFileName = "tmp.xml";
             try {
+                var tmpFileName = string.Format(@"{0}\tmp.xml", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
                 File.WriteAllText(tmpFileName, text);
                 var xmlDoc = new XmlDocument();
                 xmlDoc.Load(tmpFileName);

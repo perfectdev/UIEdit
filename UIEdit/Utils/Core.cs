@@ -36,25 +36,22 @@ namespace UIEdit.Utils {
                 } catch (Exception e) { }
                 dds.SetNull();
                 SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
-            }
 
-            try {
                 var img = new BitmapImage();
                 img.BeginInit();
                 if (pngFileName != null) img.UriSource = new Uri(pngFileName);
                 img.EndInit();
                 return img;
-            } catch (Exception) {
-                using (var memory = new MemoryStream()) {
-                    Properties.Resources.errorpic.Save(memory, ImageFormat.Png);
-                    memory.Position = 0;
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = memory;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
-                    return bitmapImage;
-                }
+            }
+            using (var memory = new MemoryStream()) {
+                Properties.Resources.errorpic.Save(memory, ImageFormat.Png);
+                memory.Position = 0;
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                return bitmapImage;
             }
         }
 
@@ -66,6 +63,7 @@ namespace UIEdit.Utils {
                 Replace(".DDS", ".png").
                 Replace(".tga", ".png").
                 Replace(".TGA", ".png");
+            if (!File.Exists(pngFileName)) return new BitmapImage();
             var sourceImage = Image.FromFile(pngFileName);
             var targetImage = new BitmapImage();
             
