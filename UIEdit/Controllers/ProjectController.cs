@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Ookii.Dialogs.Wpf;
 using UIEdit.Models;
 
@@ -17,7 +16,7 @@ namespace UIEdit.Controllers {
             InterfacesPath = dlg.SelectedPath;
             //InterfacesPath = @"B:\GAMEDEV\PW Interfaces\UIEdit test\interfaces.pck.files\interfaces";
             Files = new List<SourceFile>();
-            foreach (var file in Directory.GetFiles(InterfacesPath, "*.xml", SearchOption.AllDirectories).Where(file => File.ReadAllText(file).Contains("﻿<DIALOG "))) {
+            foreach (var file in Directory.GetFiles(InterfacesPath, "*.xml", SearchOption.AllDirectories)) {
                 Files.Add(new SourceFile { FileName = file, ProjectPath = InterfacesPath});
             }
         }
