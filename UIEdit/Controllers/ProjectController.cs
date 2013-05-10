@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Ookii.Dialogs.Wpf;
 using UIEdit.Models;
 
@@ -34,7 +35,10 @@ namespace UIEdit.Controllers {
         }
 
         public void SaveSourceFileContent(SourceFile currentSourceFile, string text) {
-            File.WriteAllText(currentSourceFile.FileName, text);
+            var prefixBytes = new byte[] {255, 254};
+            var prefix = Encoding.GetEncoding("utf-16LE").GetString(prefixBytes);
+            text = string.Format("{0}{1}", prefix, text);
+            File.WriteAllText(currentSourceFile.FileName, text, Encoding.GetEncoding("utf-16LE"));
         }
     }
 }
