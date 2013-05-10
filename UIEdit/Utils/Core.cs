@@ -37,8 +37,9 @@ namespace UIEdit.Utils {
                     FreeImage.Save(FREE_IMAGE_FORMAT.FIF_PNG, dds, pngFileName, FREE_IMAGE_SAVE_FLAGS.PNG_Z_NO_COMPRESSION);
                 } catch (Exception e) { }
                 dds.SetNull();
-                SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
-
+                ClearMemory();
+            }
+            if (File.Exists(pngFileName)) {
                 var img = new BitmapImage();
                 img.BeginInit();
                 if (pngFileName != null) img.UriSource = new Uri(pngFileName);
