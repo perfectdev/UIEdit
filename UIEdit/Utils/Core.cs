@@ -26,7 +26,7 @@ namespace UIEdit.Utils {
                 Replace(".DDS", ".png").
                 Replace(".tga", ".png").
                 Replace(".TGA", ".png");
-            
+
             if (!File.Exists(pngFileName) && File.Exists(fileName)) {
                 var ms = new FileStream(fileName, FileMode.Open);
                 var dds = FreeImage.LoadFromStream(ms);
@@ -69,7 +69,7 @@ namespace UIEdit.Utils {
             if (!File.Exists(pngFileName)) return new BitmapImage();
             var sourceImage = Image.FromFile(pngFileName);
             var targetImage = new BitmapImage();
-            
+
             var img = new Bitmap((int) targetWidth, (int) targetHeight);
             using (var g = Graphics.FromImage(img)) {
                 /*var backgroundImage = new Bitmap(1, 1);
@@ -96,8 +96,8 @@ namespace UIEdit.Utils {
                 g.DrawImage(sourceImage, dstTopRightAngle, topRightAngle, GraphicsUnit.Pixel);
                 g.DrawImage(sourceImage, dstBottomLeftAngle, bottomLeftAngle, GraphicsUnit.Pixel);
                 g.DrawImage(sourceImage, dstBottomRightAngle, bottomRighttAngle, GraphicsUnit.Pixel);
-                
-                var topTextureImg = new Bitmap(1, sourceImage.Height / 2);
+
+                var topTextureImg = new Bitmap(1, sourceImage.Height == 1 ? 1 : sourceImage.Height / 2);
                 using (var tg = Graphics.FromImage(topTextureImg)) {
                     tg.DrawImage(
                         sourceImage,
@@ -110,7 +110,7 @@ namespace UIEdit.Utils {
                 var topBorderRect = new Rectangle(sourceImage.Width / 2, 0, (int) targetWidth - sourceImage.Width + 2, sourceImage.Height / 2);
                 g.FillRectangle(topBrush, topBorderRect);
 
-                var bottomTextureImg = new Bitmap(1, sourceImage.Height / 2);
+                var bottomTextureImg = new Bitmap(1, sourceImage.Height == 1 ? 1 : sourceImage.Height / 2);
                 using (var tg = Graphics.FromImage(bottomTextureImg)) {
                     tg.DrawImage(
                         sourceImage,

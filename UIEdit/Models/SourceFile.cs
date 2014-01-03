@@ -11,5 +11,6 @@ namespace UIEdit.Models {
                 return tmp.Length == 0 ? @"\" : tmp; 
             }
         }
+        public bool PrefixExists { get; set; }
     }
 }
